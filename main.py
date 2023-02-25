@@ -6,15 +6,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
-main_df = pd.read_csv('D:\Python\WebScraping\output.csv')
+main_df = pd.read_csv('/output.csv')
 
 try:
-    chrome_driver = webdriver.Chrome('D:\Python\WebScraping\chromedriver.exe')
+    chrome_driver = webdriver.Chrome('chromedriver.exe')
 except:
     print("Update Your Chrome Driver")
 
-input = ['rrr','#kgf'] #hashtag or keywords--------------------------------------------------
-limit = 20 # limit of tweet for each (#hashtag or keywords)---------------------------------------
+input = ['rrr','#kgf'] #hashtag or keywords------------------------------------------------------INPUT
+limit = 20 # limit of tweet for each (#hashtag or keywords)---------------------------------------INPUT
 def find_particular_status_link(links, specific_string):
     for link in links:
         if specific_string in link.get('href'):
@@ -84,8 +84,9 @@ for k in input:
         data = soup.find_all('div',class_ = 'css-1dbjc4n r-1iusvr4 r-16y2uox r-1777fci r-kzbkwu')
         if len(ans) > limit:
             break
-    print(ans)
+    # print(ans)
     df = pd.DataFrame(ans)
     print(df)
+    print('data store in output.csv file successfully')
     main_df = pd.concat([main_df,df],axis=0)
-    main_df.to_csv('D:\Python\WebScraping\output.csv')
+    main_df.to_csv('/output.csv')
